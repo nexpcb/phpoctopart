@@ -1,0 +1,28 @@
+{
+    "name": "nexpcb/phpoctopart",
+    "description": "The php restful api sdk of octopart.",
+    "keywords": ["octopart", "php"],
+    "license": "MIT",
+    "homepage": "https://www.nexpcb.com",
+    "support": {
+        "homepage": "https://github.com/nexpcb/phpoctopart/issues",
+        "source": "https://github.com/nexpcb/phpoctopart"
+    },
+    "authors": [
+        {
+            "name": "Bala Wang",
+            "email": "bala@nexpcb.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle-services": "^1.1",
+        "gimler/guzzle-description-loader": "^0.0.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "PHPOctopart\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

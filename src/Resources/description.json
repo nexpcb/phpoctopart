@@ -1,0 +1,34 @@
+{
+    "name": "Octopart API",
+    "apiVersion": "v3",
+    "baseUrl": "https://octopart.com/api/v3",
+    "description": "The Octopart API is the easiest way for developers to access up-to-date pricing and availability information, datasheets, compliance documents and technical specs for electronic components from distributors and manufacturers around the world.",
+    "operations": {
+        "fetchBrandByUID": {
+            "httpMethod": "GET",
+            "uri": "/brand/{uid}",
+            "summary": "This method returns individual brands by primary key. The fetch key for a brand is its 'uid'.",
+            "responseClass": "BrandSchema",
+        }
+    },
+    "models": {
+        "BrandSchema": {
+            "type": "object",
+            "properties": {
+                "uid": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
+                    "type": "string",
+                },
+                "homepage_url": {
+                    "location": "json",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "includes": []
+}
