@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPOctopart;
+namespace NexPCB\PHPOctopart;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Command\Guzzle\Description;

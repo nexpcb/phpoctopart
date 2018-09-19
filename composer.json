@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPOctopart\\": "src/"
+            "NexPCB\\PHPOctopart\\": "src/"
         }
     },
     "minimum-stability": "dev",
