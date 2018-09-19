@@ -1,32 +1,184 @@
 {
     "name": "Octopart API",
     "apiVersion": "v3",
-    "baseUrl": "https://octopart.com/api/v3",
+    "baseUrl": "http://octopart.com",
     "description": "The Octopart API is the easiest way for developers to access up-to-date pricing and availability information, datasheets, compliance documents and technical specs for electronic components from distributors and manufacturers around the world.",
     "operations": {
-        "fetchBrandByUID": {
+        "getBrandByUID": {
             "httpMethod": "GET",
-            "uri": "/brand/{uid}",
+            "uri": "/api/v3/brands/{uid}",
             "summary": "This method returns individual brands by primary key. The fetch key for a brand is its 'uid'.",
-            "responseClass": "BrandSchema",
+            "responseClass": "ResponseObjectSchema",
+            "parameters": {
+                "uid": {
+                    "location": "uri",
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
+        "searchBrands": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/brands/search",
+            "summary": "This method allows searching across brands by keyword. This is the ideal method to use to go from a brand alias or keyword to a Octopart brand instance.",
+            "responseClass": "SearchResponseSchema",
+            "additionalParameters": {
+                "location": "query"
+            }
+        },
+        "getMultipleBrands": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/brands/get_multi",
+            "summary": "This endpoint returns multiple brands simultaneously by primary key. The fetch key for each brand is its 'uid'.",
+            "responseClass": "ResponseCollectionSchema",
+            "parameters": {
+                "uid": {
+                    "location": "query",
+                    "type": "array"
+                }
+            }
+        },
+        "getCategoryByUID": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/categories/{uid}",
+            "summary": "This method returns invividual category nodes by primary key. The fetch key for a category is its 'uid'.",
+            "responseClass": "ResponseObjectSchema",
+            "parameters": {
+                "uid": {
+                    "location": "uri",
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
+        "searchCategories": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/categories/search",
+            "summary": "This method allows searching across brands by keyword. This is the ideal method to use to go from a brand alias or keyword to a Octopart brand instance",
+            "responseClass": "SearchResponseSchema",
+            "additionalParameters": {
+                "location": "query"
+            }
+        },
+        "getMultipleCategories": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/categories/get_multi",
+            "summary": "This endpoint returns multiple categories simultaneously by primary key. The fetch key for each part is its 'uid'. Missing categories will also be missing from the response list.",
+            "responseClass": "ResponseCollectionSchema",
+            "parameters": {
+                "uid": {
+                    "location": "query",
+                    "type": "array"
+                }
+            }
+        },
+        "getPartByUID": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/parts/{uid}",
+            "summary": "This method returns individual parts by primary key. The fetch key for a part is its 'uid'.",
+            "responseClass": "ResponseObjectSchema",
+            "parameters": {
+                "uid": {
+                    "location": "uri",
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
+        "getPartsByMPNSKU": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/parts/match",
+            "summary": "This method returns parts matched by MPN/SKU filter. It also accepts brand and seller filters as well. This is the ideal method to match a list of parts (e.g. a BOM) to the Octopart parts database.",
+            "responseClass": "ResponseCollectionSchema",
+            "parameters": {
+                "queries": {
+                    "location": "query",
+                    "type": "string",
+                    "summary": "JSON encoded list of PartsMatchQuery objects. Maximum value of 'limit' argument is 20, and maximum 'start' + 'limit' is 100."
+                },
+                "exact_only": {
+                    "location": "query",
+                    "type": "boolean",
+                    "summary": "If specified, match non-alphanumeric characters in MPNs and SKUs."
+                }
+            }
+        },
+        "searchParts": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/parts/search",
+            "summary": "This method allows searching across parts by keyword. or technical specs. This is the ideal method to use to filter parts by manufacturer or to perform a parametric search.",
+            "responseClass": "SearchResponseSchema",
+            "additionalParameters": {
+                "location": "query"
+            }
+        },
+        "getMultipleParts": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/parts/get_multi",
+            "summary": "This endpoint returns multiple parts simultaneously by primary key. The fetch key for each part is its 'uid'. Missing parts will also be missing from the response list.",
+            "responseClass": "ResponseCollectionSchema",
+            "parameters": {
+                "uid": {
+                    "location": "query",
+                    "type": "array"
+                }
+            }
+        },
+        "getSellerByUID": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/seller/{uid}",
+            "summary": "",
+            "responseClass": "ResponseObjectSchema",
+            "parameters": {
+                "uid": {
+                    "location": "uri",
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
+        "searchSellers": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/sellers/search",
+            "summary": "This method allows searching across sellers by keyword. This is the ideal method to use to go from a seller alias or keyword to a Octopart seller instance",
+            "responseClass": "SearchResponseSchema",
+            "additionalParameters": {
+                "location": "query"
+            }
+        },
+        "getMultipleSellers": {
+            "httpMethod": "GET",
+            "uri": "/api/v3/sellers/get_multi",
+            "summary": "This endpoint returns multiple sellers simultaneously by primary key. The fetch key for each seller is its 'uid'.",
+            "responseClass": "ResponseCollectionSchema",
+            "parameters": {
+                "uid": {
+                    "location": "query",
+                    "type": "array"
+                }
+            }
         }
     },
     "models": {
-        "BrandSchema": {
+        "ResponseObjectSchema": {
             "type": "object",
-            "properties": {
-                "uid": {
-                    "location": "json",
-                    "type": "string"
-                },
-                "name": {
-                    "location": "json",
-                    "type": "string",
-                },
-                "homepage_url": {
-                    "location": "json",
-                    "type": "string"
+            "additionalProperties": {
+                "location": "json"
+            }
+        },
+        "ResponseCollectionSchema": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": {
+                    "location": "json"
                 }
+            }
+        },
+        "SearchResponseSchema": {
+            "type": "object",
+            "additionalProperties": {
+                "location": "json"
             }
         }
     },
