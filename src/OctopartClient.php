@@ -20,7 +20,7 @@ class OctopartClient extends GuzzleClient
 
     public static function create($config = [])
     {
-        if (!isset($config['apikey'])) {
+        if (!isset($config['apikey']) || empty($config['apikey'])) {
             throw new \Exception('Required apikey is missing from configuration.');
         }
 
