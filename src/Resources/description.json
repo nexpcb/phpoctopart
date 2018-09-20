@@ -167,12 +167,9 @@
             }
         },
         "ResponseCollectionSchema": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "additionalProperties": {
-                    "location": "json"
-                }
+            "type": "object",
+            "additionalProperties": {
+                "location": "json"
             }
         },
         "SearchResponseSchema": {
