@@ -82,6 +82,10 @@
                     "location": "uri",
                     "type": "string",
                     "required": true
+                },
+                "include": {
+                    "location": "query",
+                    "type": "array"
                 }
             }
         },
@@ -100,6 +104,10 @@
                     "location": "query",
                     "type": "boolean",
                     "summary": "If specified, match non-alphanumeric characters in MPNs and SKUs."
+                },
+                "include": {
+                    "location": "query",
+                    "type": "array"
                 }
             }
         },
@@ -119,6 +127,10 @@
             "responseClass": "ResponseCollectionSchema",
             "parameters": {
                 "uid": {
+                    "location": "query",
+                    "type": "array"
+                },
+                "include": {
                     "location": "query",
                     "type": "array"
                 }
