@@ -14,10 +14,6 @@
             "email": "bala@nexpcb.com"
         }
     ],
-    "require": {
-        "guzzlehttp/guzzle-services": "^1.1",
-        "gimler/guzzle-description-loader": "^0.0.4"
-    },
     "autoload": {
         "psr-4": {
             "NexPCB\\PHPOctopart\\": "src/"
