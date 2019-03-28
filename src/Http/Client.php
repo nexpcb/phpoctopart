@@ -3,6 +3,7 @@
 namespace NexPCB\PHPOctopart;
 
 use GuzzleHttp\Client as GuzzleClient;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class Client
 {
@@ -36,10 +37,12 @@ class Client
         }
 
         $defaultClientOptions = [
+            'base_uri' => 'http://octopart.com/api/v3/',
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-            ]
+            ],
+            'query' => ['apikey' => $config['apikey']],
         ];
 
         $this->clientOptions = array_merge($defaultClientOptions, $clientOptions);
@@ -50,34 +53,19 @@ class Client
      * @param $method
      * @param $url
      * @param array $options
-     * @param string $queryString
      * @return mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function request($method, $url, $options = [], $queryString = '')
+    public function request($method, $url, $options = [])
     {
         try {
-            $url = $this->generateUrl($url, $queryString);
-            $options = array_merge($this->clientOptions, $options);
+            $options = array_merge_recursive($this->clientOptions, $options);
             return $this->client->request($method, $url, $options);
         }
         catch (\GuzzleHttp\Exception\BadResponseException $e) {
-            throw new BadRequest(\GuzzleHttp\Psr7\str($e->getResponse()), $e->getCode(), $e);
+            throw new BadRequestHttpException(\GuzzleHttp\Psr7\str($e->getResponse()), $e, $e->getCode());
         } catch (\Exception $e) {
-            throw new BadRequest($e->getMessage(), $e->getCode(), $e);
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
         }
-    }
-
-    public function generateUrl($url, $queryString = '')
-    {
-        if ($queryString) {
-            $queryString .= "&apikey={$this->apiKey}";
-        }
-        else {
-            $queryString = "?apikey={$this->apiKey}";
-        }
-        $url .= '?' . $queryString;
-
-        return $url;
     }
 }

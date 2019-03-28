@@ -1,33 +1,43 @@
 <?php
 
-namespace NexPCB\PHPOctopart;
+namespace NexPCB\PHPOctopart\Resources;
 
 class Brands extends Resource
 {
 
+    /**
+     * @param $uid
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getByUID($uid)
     {
-        $endpoint = "/api/v3/brands/{$uid}";
+        $endpoint = "brands/{$uid}";
         return $this->client->request('get', $endpoint);
     }
 
     /**
      * @param string $query
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function search($query)
+    public function search(array $query)
     {
-        $endpoint = "/api/v3/brands/search" . "?query={$query}";
-        $this->client->request('get', $endpoint);
+        $endpoint = "brands/search";
+        $options['query'] = $query;
+        $this->client->request('get', $endpoint, $options);
     }
 
     /**
      * @param array $uids
+     * @param array $include
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getMultiple($uids = [])
+    public function getMultiple($uids = [], $include = [])
     {
-        $endpoint = "/api/v3/brands/get_multi";
-
-
+        $endpoint = "brands/get_multi";
+        $options['query'] = ['uid' => $uids, 'include' => $include];
+        return $this->client->request('get', $endpoint, $options);
     }
 }

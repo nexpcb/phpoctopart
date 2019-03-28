@@ -1,6 +1,6 @@
 <?php
 
-namespace NexPCB\PhpOctopart;
+namespace NexPCB\PHPOctopart\Resources;
 
 use NexPCB\PHPOctopart\Client;
 
